@@ -49,3 +49,7 @@ step3: recursively compute (a + b)(c + d) = ac + ad + bc + bd
 Gauss's trick: (3) - (1) - (2) = ad + bc
 
 upshot: only need 3 recursive multiplications and some additions
+
+#### About the course
+
+spoilers
