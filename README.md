@@ -66,6 +66,42 @@ output: array of n numbers, sorted from min to max
 
 Assumption: numbers are distincts (does not change much)
 
-#### Merge Sort: Pseudocode
+#### Merge Sort: Pseudocode / Merge Sort: Analysis
 
 ignore base cases
+
+```
+C = output[length = n]
+A = first sorted array [n/2]
+B = second sorted array [n/2]
+i = 1
+j = 1
+
+for k = 1 to n
+  if A(i) < B(j)
+    C(k) =  A(i)
+    i++
+  else
+    C(k) = B(j)
+    j++
+end
+```
+
+Running time ? n numbers to sort
+
+Upshot: <= 4n + 2
+        <= 6n (since n >= 1)
+
+Claim: merge sort requires <= 6n * (log(n) + 1) operations to sort n
+
+At each level j=0,1,...,log(n) there are 2^j subproblems each of size n/(2^j)
+
+#### Guiding Principles for Analysis of Algorithms
+
+- worst case analysis
+- don't pay attention to constant factors and lower order terms
+- asymptotic analysis (focus on large input sizes)
+
+Fast algorithm ~= worst-case running time grows slowly with input size
+
+Holy grail: linear runnning time
