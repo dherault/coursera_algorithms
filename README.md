@@ -53,3 +53,19 @@ upshot: only need 3 recursive multiplications and some additions
 #### About the course
 
 spoilers
+
+#### Merge Sort: Motivation and Example
+
+Improves over Selection, Insertion, Bubble sorts
+Good example for worst case behavior and asymptotic analysis
+
+Recursion tree methods --> "Master method"
+
+input: array of n numbers
+output: array of n numbers, sorted from min to max
+
+Assumption: numbers are distincts (does not change much)
+
+#### Merge Sort: Pseudocode
+
+ignore base cases
