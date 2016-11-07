@@ -105,3 +105,31 @@ At each level j=0,1,...,log(n) there are 2^j subproblems each of size n/(2^j)
 Fast algorithm ~= worst-case running time grows slowly with input size
 
 Holy grail: linear runnning time
+
+### Asymptotic analysis
+
+#### The gist
+
+Importance: vocabulary, "sweet spot", sharp enough to differentiate algo
+
+High-level idea: suppress constant factors and lower-order terms.
+
+constant factors: too system-dependant
+lower-order terms: irrelevant for large input
+
+--> 6n(log(n) + 1) ==> nlog(n)
+
+**examples:**
+
+- One loop: does an array contains a given integer  --> O(n)
+- Two loops: does A or B contain t? --> O(n)
+- Two nested loops: do A and B have a number in common --> O(n²)
+- Two nested loops (II): does A have duplicate entries --> O(n²)
+
+#### Big-Oh Notation
+
+T(n) = function on N
+
+```
+T(n) = O(t(n)) <--> E c, n_0 > 0 \ T(n) <= c*f(n) A n >= n_0
+```
