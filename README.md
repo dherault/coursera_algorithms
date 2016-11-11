@@ -1,3 +1,4 @@
+
 # Algorithms
 Notes and homework for Coursera's "Algorithms" online class :books:
 
@@ -130,6 +131,32 @@ lower-order terms: irrelevant for large input
 
 T(n) = function on N
 
-```
-T(n) = O(t(n)) <--> E c, n_0 > 0 \ T(n) <= c*f(n) A n >= n_0
-```
+`T(n) = O(f(n)) <--> E c, n0 > 0 / T(n) <= c * f(n) A n >= n0`
+
+#### Basic Examples
+
+##### Example 1
+
+Claim:  if T(n) = a_k * n^k + ... + a_0 * n^0
+        then T(n) = O(n^k)
+
+Proof: choose n0 = 1 and c = |a_k|+...+|a_0|
+
+##### Examples 2
+
+Claim: A k >= 1, n^k != O(n^(k-1))
+
+Proof: by contradiction. Suppose n^k = O(n^(k-1))
+`E c, n0 > 0 / n^k <= c * n^(k -1), A n >= 0`
+ie `n <= c, A n >= 0`
+
+#### Big Omega and Theta
+
+Omega notation:
+`T(n) = Om(f(n)) <--> E c, n0 / T(n) >= c * f(n) A n >= n0`
+
+Theta notation: O(f(n)) AND Om(f(n))
+`T(n) = th(f(n)) <--> E c1, c2, n0 / c1 * f(n) <= T(n) <= c2 * f(n) A n >= n0`
+
+Little Oh notation:
+`T(n) = o(f(n)) <--> A c > 0, E n0 / T(n) <= c * f(n) A n >= n0`
