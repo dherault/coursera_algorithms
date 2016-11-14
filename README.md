@@ -209,3 +209,34 @@ SortAndCountInversions(array A of length n)
 MergeAndCountSlipInversions: when an element of 2nd array C gets copied into output D, increment total by number of elements remaining in 1st array B
 
 Run time: O(nlog(n))
+
+#### Strassen's Subcubic Matrix Multiplication Algorithm
+
+n by b matrices
+
+Classic multiplication: O(n^3)
+
+Recursive algorithm n#1:
+
+Idea: write X = (A, B; C, D) and Y = (E, F; G, H) where A...H are n/2 by n/2 matrices
+
+Then: XY = (AE + BG, AF + BH; CE + DG, CF + DH)
+
+--> O(n^3)
+
+Strassen's algorithm (1969)
+
+- Step 1: recursiely compute only 7 (cleverly chosen) products
+- Step 2: do the necessary (clever) additions and subtractions (still O(n²) time)
+- Fact: better than cubic time! (see next lecture)
+
+7 products:
+- P1 = A(F - H)
+- P2 = (A + B)H
+- P3 = (C + D)E
+- P4 = D(G - E)
+- P5 = (A + D)(E + H)
+- P6 = (B - D)(G + H)
+- P7 = (A - C)(E + F)
+
+Claim: XY = (P5 + P4 - P2 + P6, P1 + P2; P3 + P4, P1 + P5 - P3 - P7)
