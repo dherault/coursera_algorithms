@@ -198,7 +198,7 @@ Idea: piggyback on merge sort
 
 ```
 SortAndCountInversions(array A of length n)
-  if (n == 1) return 0
+  if (n == 1) return (A, 0)
   else
     (B, x) = SortAndCountInversions(first half of A)
     (C, y) = SortAndCountInversions(second half of A)
