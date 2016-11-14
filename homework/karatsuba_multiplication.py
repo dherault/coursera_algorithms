@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.5
 import sys
 
 
@@ -27,18 +27,16 @@ def karatsuba(x, y):
 def main():
   args = sys.argv[1:]
 
-  if not args or len(args) < 2:
-    print 'Bad arguments'
-    return
+  if not args or len(args) < 2: return print('Bad arguments')
 
   x = int(args[0])
   y = int(args[1])
 
-  print 'Multiplying %d and %d\n' % (x, y)
+  print('Multiplying', x, 'and', y, '\n')
 
-  print 'Classic multiplication:'
-  print x * y
-  print 'Karatsuba:'
-  print karatsuba(x, y)
+  print('Classic multiplication:')
+  print(x * y)
+  print('Karatsuba:')
+  print(karatsuba(x, y))
 
 if __name__ == '__main__': main()

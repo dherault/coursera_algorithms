@@ -160,3 +160,52 @@ Theta notation: O(f(n)) AND Om(f(n))
 
 Little Oh notation:
 `T(n) = o(f(n)) <--> A c > 0, E n0 / T(n) <= c * f(n) A n >= n0`
+
+### Divide and conquer algorithms
+
+#### O(n log n) Algorithm for Counting Inversions I
+
+The divide and conquer paradigm:
+- Divide the problem into smaller subproblems
+- Conquer the subproblems via recursive calls
+- Combine solutions of subproblems into the original solution
+
+Input: array A containing the numbers 1, 2, 3, ... in some arbitrary order
+Output: number of inversions = number of pairs (i,j) of indices with i < j and A[i] > A[j]
+Motivation: numerical similarity measure between two ranked lists
+Largest possible number of inversions: (n C 2) = n(n - 1) / 2
+
+Note: `(n choose k) = n! / (k!(n - k)!)`
+
+Brute force algorithm: O(n²) time
+
+3 types of inversions, (i,j) <= n / 2; (i,j) > n / 2; i <= n / 2 < j (split inversion)
+
+High-level algorithm:
+```
+CountInversions(array A of length n)
+  if (n == 1) return 0
+  else
+    x = CountInversions(first half of A)
+    y = CountInversions(second half of A)
+    z = CountSplitInversions(A, n) // TODO
+    return x + y + z
+```
+
+#### O(n log n) Algorithm for Counting Inversions II
+
+Idea: piggyback on merge sort
+
+```
+SortAndCountInversions(array A of length n)
+  if (n == 1) return 0
+  else
+    (B, x) = SortAndCountInversions(first half of A)
+    (C, y) = SortAndCountInversions(second half of A)
+    (D, z) = MergeAndCountSlipInversions(B, C, n) // TODO
+    return (D, x + y + z)
+```
+
+MergeAndCountSlipInversions: when an element of 2nd array C gets copied into output D, increment total by number of elements remaining in 1st array B
+
+Run time: O(nlog(n))
