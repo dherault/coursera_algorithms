@@ -240,3 +240,153 @@ Strassen's algorithm (1969)
 - P7 = (A - C)(E + F)
 
 Claim: XY = (P5 + P4 - P2 + P6, P1 + P2; P3 + P4, P1 + P5 - P3 - P7)
+
+#### O(n log n) Algorithm for Closest Pair
+
+input: n points (€ R²) in the plane
+output: the closest pair in the plane (euclidian distance)
+assumption: all points have distinct x and y coordinates
+
+Brute force: O(n²)
+
+1-D version of closest pair:
+- sort points O(nlogn)
+- return closest pair of adjacent points O(n)
+
+Goal: O(nlogn) for 2-D version
+
+High level approach:
+
+- make copies of points sorted by x-coordinate (Px) and y-coordinates (Py) O(nlogn)
+- use divide-conquer
+
+```
+ClosestPair(Px, Py)
+  # base case omitted
+  let Q = leftmost half part of P
+      R = rightmost
+  form Qx, Qy, Rx, Ry (takes O(n) time)
+
+  (p1, q1) = ClosestPair(Qx, Qy)
+  (p2, q2) = ClosestPair(Rx, Ry)
+
+  Either the closest pair is entirely in Q, either in R
+  unlucky case: the pair is splitted in Q and R
+
+  (p3, q3) = ClosestSplitPair(Px, Py)
+
+  return best of 3 pairs
+```
+
+If ClosestSplitPair is O(n) then ClosestPair is O(nlogn)
+
+ClosestSplitPair:
+key idea: only need to compute the unlucky case. Because the recursions will eventually make all cases unlucky
+
+```
+ClosestPair(Px, Py)
+  let Q = leftmost half part of P
+      R = rightmost
+  form Qx, Qy, Rx, Ry (takes O(n) time)
+
+  (p1, q1) = ClosestPair(Qx, Qy)
+  (p2, q2) = ClosestPair(Rx, Ry)
+
+  let D = min(d(p1, q2), d(p2, q2))
+
+  (p3, q3) = ClosestSplitPair(Px, Py, D)
+
+  return best of 3 pairs
+
+ClosestSplitPair(Px, Py, D)
+  let x = biggest x-coordinate in left of P (O(n))
+  let Sy = points of P with x-coordinates in [x - D, x + D], sorted by y-coordinates (O(n))
+  let best = D
+  let best_pair = null
+
+  for i = 1 to len(Sy) - 1
+    for j = 1 to min(7, len(Sy) - i)
+      let p, q = i-th, (i + j)-th points of Sy
+
+      if d(p, d) < best
+        best = d(p, q)
+        best_pair = (p, q)
+    # O(1) time
+  # O(n) time
+
+  return best_pair
+```
+
+Satisfies the correctness requirements u_u
+Claim:
+let p € Q, q € R be a split pair with d(p, q) < D
+Then:
+(A) p and q are members of Sy
+(B) p and q are at most 7 positions apart in Sy
+
+### The master method (aka master theorem)
+
+#### Motivation
+
+Re: Karatsuba
+
+T(n) = maximum number of operations this algorithm needs to multiply two n-digit numbers
+
+Recurrence: express T(n) in term of running time of recursive calls
+
+- Base case: T(1) <= a constant
+- A n > 1: T(n) <= 3T(n / 2) + O(n)
+
+#### Formal Statement
+
+assumption: all subproblems have equal size (previously: n / 2)
+
+- A n > n_base_case: T(n) <= a * T(n / b) + O(n^d)
+- a: number of recursive calls (>= 1)
+- b: input size shrinkage factor (> 1)
+- d: exponent in running time of "comble step" (>= 0)
+- (a, b, d) independent of n
+
+```
+if T(n) <= a * T(n / b) + O(n^d)
+then T(n) = {
+  if a = b^d: O(n^d * log(n))
+  if a < b^d: O(n^d)
+  if a > b^d: O(n^log_b(a))
+```
+
+Only gives upper bond, but can use theta
+
+log: no base ? base does not matter (constant factor change) UNLESS in exponent, then the constant factor matters, a lot.
+
+#### Examples
+
+Merge sort:
+a = 2
+b = 2
+d = 1
+--> a = b^d --> O(nlogn)
+
+Binary search:
+a = 1
+b = 2
+d = 0
+--> a = b^d --> O(logn)
+
+Karatsuba without Gauss's trick:
+a = 4
+b = 2
+d = 1
+--> a > b^d --> O(n^(log2(4))) = O(n²)
+
+Karatsuba:
+a = 3
+b = 2
+d = 1
+--> a > b^d --> O(n^(log2(3))) = O(n^1.59)
+
+Strassen's matrix multiplication:
+a = 7
+b = 2
+d = 2
+--> a > b^d --> O(n^(log2(7))) = O(n^2.81)
