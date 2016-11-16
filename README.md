@@ -390,3 +390,30 @@ a = 7
 b = 2
 d = 2
 --> a > b^d --> O(n^(log2(7))) = O(n^2.81)
+
+#### Proof
+
+Assume: recurrence is
+(i)  T(1) < c
+(ii) T(n) < a * T(n / b) + c * n^d
+and n is a power of b
+
+Idea: generalize merge sort analysis ie use a recursion tree
+
+at each level j=0,1,2,...,log_b(n) there are a^j subproblems each of size n / b^j
+
+The recursion tree
+
+Level 0: n
+Level 1: n/b, n/b, ... (a branches)
+...
+Level log_b(n): base cases
+
+Work at a single level (ignoring work in recursive calls): <= a^j * c * (n / b^j)^d
+where:
+- a^j is the # of level-j subproblems
+- n / b^j is the size of each level-j subproblem
+- c * (n / b^j)^d is the work per level-j subproblem
+
+Total work: summing over all levels j:
+total work <=  c * n^d * sum(j=0...log_b(n), (a / b^d)^j) ( * )
