@@ -1,5 +1,5 @@
-
 # Algorithms
+
 Notes and homework for Coursera's "Algorithms" online class :books:
 
 ## Divide and Conquer, Sorting and Searching, and Randomized Algorithms
@@ -416,4 +416,21 @@ where:
 - c * (n / b^j)^d is the work per level-j subproblem
 
 Total work: summing over all levels j:
-total work <=  c * n^d * sum(j=0...log_b(n), (a / b^d)^j) ( * )
+total work <=  c * n^d * sum(j=0...log_b(n), (a / b^d)^j) (¤)
+
+How to think about (¤)
+
+- a = rate of subproblem proliferation (RSP)
+- b^d = rate of work shrinkage (RWS) (per subproblem)
+
+- If RSP < RWP then the amount of work is decreasing with the recursion level j (expect O(n^d * logn))
+- If RSP > RWP then the amount of work is increasing with the recursion level j (extect O(n^d))
+- If RSP = RWP then the amount of work is the same at every recursion level j (expect O(# leaves))
+
+If a = b^d then (¤) = c * n^d * (log_b(n) + 1)
+                    = O(n^d * log(n)) We can suppress constant factors
+
+A r != 1, 1 + r + r² + ... + r^k = (r^(k + 1) - 1) / (r - 1)
+upshot:
+- If r < 1, <= 1 / (r - 1) = a constant (independent of k)
+- If r > 1, <= r^k * (1 + 1 / (r - 1))
