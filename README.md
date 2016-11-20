@@ -434,3 +434,59 @@ A r != 1, 1 + r + r² + ... + r^k = (r^(k + 1) - 1) / (r - 1)
 upshot:
 - If r < 1, <= 1 / (r - 1) = a constant (independent of k)
 - If r > 1, <= r^k * (1 + 1 / (r - 1))
+
+### Quicksort algorithm
+
+#### Quicksort: Overview
+
+- Greatest hit algorithm
+- Prevalent in practice
+- O(nlogn), works in place
+
+input: array of n unsorted numbers
+output: array of n sorted numbers
+assume: all array entries distinct
+
+key idea: partition array arounda pivot element
+- pick element of array
+- rearrange array so that left to pivot === less than pivot, right === greater
+
+Note: puts pivot in its "rightful position"
+
+Partition:
+- linear O(n) time, no extra memory
+- reduces problem size
+
+High-level description:
+```
+QuickSort(A of length n)
+  if n == 1 return
+  p = ChoosePivot(A)
+  partition A around p
+  recursively sort first and second part (not including p)
+```
+
+#### Partitioning Around a Pivot
+
+The easy way: using O(n) extra memory. bouh!
+
+In-place implementation:
+Assume: pivot is the first element of array
+High-level idea:
+- single scan through array
+- invariant: everything looked at so far is partitioned
+
+```
+Partition(A, l, r) // input = A[l...r]
+  p = A[l]
+  i = l + 1
+  for j = l + 1 to r
+    if A[j] < p // if not, do nothing
+      swap A[j] and A[i]
+      i++
+  swap A[l] and A[i - 1]
+```
+
+Running time: O(n) where n = r - l + 1 (O(1) work per array entry)
+
+Correctness: the for loop maintains the invariants (A[l + 1]...A[i - 1] < p and A[i]...A[j - 1] > p)
