@@ -490,3 +490,22 @@ Partition(A, l, r) // input = A[l...r]
 Running time: O(n) where n = r - l + 1 (O(1) work per array entry)
 
 Correctness: the for loop maintains the invariants (A[l + 1]...A[i - 1] < p and A[i]...A[j - 1] > p)
+
+#### Correctness of Quicksort
+
+By induction. Think about the partitioned array. The "parts" are smaller than n, hence the proof.
+
+#### Choosing a Good Pivot
+
+The running time of QuickSort depends on the quality of the pivot
+
+If pivot is always the first element, on a sorted array QuickSort performs theta(n²)
+Because n + (n - 1) + ... + 1 < n²
+
+If pivot is always the median element of te array, on any array QuickSort performs theta(nlogn)
+
+How to choose pivots?
+Key idea: random pivots!
+
+QuickSort theorem:
+for every input array of length n, t average running time of QuickSort with random pivots is O(nlogn)
