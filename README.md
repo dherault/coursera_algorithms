@@ -512,7 +512,7 @@ for every input array of length n, the average running time of QuickSort with ra
 
 ### QuickSort analysis
 
-#### Analysis I: A Decomposition Principle
+#### Analysis: A Decomposition Principle
 
 Fixed input array A of length n
 
@@ -535,3 +535,43 @@ A general decomposition principle:
 - Identify random variable Y that you really care about
 - Express Y as a sum of indicator random variable: Y = sum(X)
 - Apply linearity of expectation: E[Y] = sum(E[x]) = sum(P(x = 1))
+
+### Linear-time Selection
+
+#### Randomized Selection - Algorithm
+
+input:  array A of n disctinct numbers and a number i
+output: i-th order statistic ie the i-th smallest element of A
+example: median
+
+The 1st order statistic is the min --> trivial with linear scan
+The nth order statistic is the max --> idem
+
+Easy to do with sorting, but nlogn
+
+```
+RandomizedSelection(A of length n, order statistic i)
+  if n == 1 return A[0]
+  choose pivot p uniformly at random
+  partition A around p
+
+  let j = new index of p
+
+  if i == j return p // lucky
+
+  if j > i return RandomizedSelection(first part of A of length j - 1, i)
+  if j < i return RandomizedSelection(second part of A of length n - j, i - j)
+```
+
+Claim: RandomizedSelection is correct (proof: by induction)
+
+Running time ? Depends on quality of the pivot
+worst pivot: theta(n²)
+key: find a pivot giving a balanced split
+best pivot: the median (lol)
+--> would get recurrence T(n) <= T(n / 2) + O(n) --master method--> T(n) = O(n)
+Hope: random pivot is "pretty good" "often enough"
+
+RandomizedSelection theorem: for every input array of length n, the average running time is O(n)
+
+#### Randomized Selection - Analysis
