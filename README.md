@@ -508,4 +508,30 @@ How to choose pivots?
 Key idea: random pivots!
 
 QuickSort theorem:
-for every input array of length n, t average running time of QuickSort with random pivots is O(nlogn)
+for every input array of length n, the average running time of QuickSort with random pivots is O(nlogn)
+
+### QuickSort analysis
+
+#### Analysis I: A Decomposition Principle
+
+Fixed input array A of length n
+
+sample space Om = all possible outcomes of random choices in QuickSort (i.e. pivot sequences)
+
+random variable A s € Om, E C(s) the # of comparisons between two input elements
+
+lemma: running time of QuickSort dominated by companrisons
+
+notation:
+z_i = i-th smallest item in A
+
+X_ij(s) = # of times z_i and z_j get compared in pivot sequence s (indicator random variable: ie can take only 0 or 1)
+
+A s, C(s) = sum(i=1...n - 1, sum(j=i + 1...n, X_ij(s)))
+
+By linearity of ... this is cumbersome to type
+
+A general decomposition principle:
+- Identify random variable Y that you really care about
+- Express Y as a sum of indicator random variable: Y = sum(X)
+- Apply linearity of expectation: E[Y] = sum(E[x]) = sum(P(x = 1))
