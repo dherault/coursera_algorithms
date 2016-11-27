@@ -575,3 +575,41 @@ Hope: random pivot is "pretty good" "often enough"
 RandomizedSelection theorem: for every input array of length n, the average running time is O(n)
 
 #### Randomized Selection - Analysis
+
+Notation: RS is in phase j if the current array size is between (3/4)^(j+1) * n and (3/4)^j * n
+X_j = number of recursion calls during phase j
+
+...
+
+coin flip: E[heads] = 1 + 0.5 * E[heads]
+- 1 is the flip
+- 0.5 is the probability that the flip fails, in which case we would try again
+
+#### Deterministic Selection - Algorithm
+
+key idea: use the "median of medians" as the pivot
+
+```
+ChoosePivot(A of length n)
+  break A into n / 5 groups of size 5 each
+  sort each group
+  copy the n / 5 medians (ie middle elements of each sorted group) into new array C
+  recursively compute median of C
+  return it as the pivot
+  partition around it
+
+i.e.:
+
+DSelect(A of length n, order statistic i)
+  Break A into n / 5 groups of size 5, sort the groups
+  C = the n / 5 "middle elements"
+  p = DSelect( of length n / 5, n / 10)
+  Partition A around P
+  if j = i return p
+  if j < i return DSelect(first part of A of length j - 1, i)
+  if j > i return DSelect(second part of A of length n - j, i - j)
+```
+
+Not as good as RSelect in practice
+- worse constants
+- not in-place
