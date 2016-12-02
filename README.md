@@ -613,3 +613,20 @@ DSelect(A of length n, order statistic i)
 Not as good as RSelect in practice
 - worse constants
 - not in-place
+
+#### Deterministic Selection - Analysis
+
+#### Omega(n log n) Lower Bound for Comparison-Based Sorting
+
+### Graphs and the contraction algorithm
+
+#### Graphs and Minimum Cuts
+
+"Only" 20 yo algorithm
+
+Cuts of a graph (V, E) a partition of V into two non-empty sets A and B
+
+A graph with n vertices has 2^n possible cuts
+
+Input: an undirected graph G = (V, E)
+Goal: compute a cut with fewest number of crossing edges (i.e. a min-cut)
