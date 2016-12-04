@@ -105,7 +105,7 @@ At each level j=0,1,...,log(n) there are 2^j subproblems each of size n/(2^j)
 
 Fast algorithm ~= worst-case running time grows slowly with input size
 
-Holy grail: linear runnning time
+Holy grail: linear running time
 
 ### Asymptotic analysis
 
@@ -775,3 +775,44 @@ BFS(graph G, start vertex s)
 Running time: O(ns + ms), where ns is the # of nodes reachable from s
 
 #### BFS and Shortest Paths
+
+Goal: compute dist(v), te fewest # of edges between s and v
+
+extra code:
+- initialize dist(v) = { 0 is s == v, +infinity otherwise }
+- when considering edge (v, w):
+  - if w inexplored: dist(w) = dist(v) + 1
+
+#### BFS and Undirected Connectivity
+
+Connected components: "the pieces" of G
+
+Formal definition: equivalence classes of the relation u~v <=> E u-v path in G
+
+Goal: compute all connected components
+Why: check if network is disconnected
+
+```
+ComputeAllComponents(G)
+  mark all nodes as unexplored
+  for i=1 to n
+    if i not explored
+      BFS(G, i)
+# note: maybe some code to describe the found components
+```
+
+Running time: O(n + m)
+
+#### Depth-First Search (DFS): The Basics
+
+```
+DFS(G, starting vertex s)
+  mark s as explored
+  for every edge (s, v):
+    if v is unexplored:
+      DFS(G, v)
+```
+
+Could also mimick BFS with a stack instead of a queue.
+
+Running time: O(ns + ms)
