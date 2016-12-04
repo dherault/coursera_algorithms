@@ -728,3 +728,50 @@ Question: what is the largest number of min cut a graph can have?
 Answer: n choose 2 = n(n - 1) / 2
 
 ## Graph Search, Shortest Paths, and Data Structures
+
+### Graph search and connectivity
+
+#### Graph Search - Overview
+
+Generic graph search
+Goals:
+- Find everything findable from a given vertex
+- Don't explore anything twice
+- in O(n + m) time
+
+Generic algo: given a grap G and a vertex s
+- initially s explored, all other vertices unexplored
+- while possible:
+  - choose an edge (u, v) with u explored and v unexplored
+  - mark v explored
+
+Claim: at the end of the algo, v explored <=> G has a path from s to v
+
+Breath-First Search (BFS)
+- explore nodes in layer
+- can compute shortest paths
+- can compute connected components of an undirected graph
+--> O(n + m) time using a queue (FIFO)
+
+Depth-First Search (DFS)
+- explore agressively like a maze, backtrack only when necessary
+- compute topological ordering of a DAG
+- compute connected components in directed graphs
+
+#### Breadth-First Search (BFS): The Basics
+
+```
+BFS(graph G, start vertex s)
+  mark s as explored
+  let Q = queue FIFO initialized with s
+  while Q != 0:
+    v = Q.shift() // The first
+    for each edge (v, w):
+      if w unexplored:
+        mark w as explored
+        Q.append(w) // At the end
+```
+
+Running time: O(ns + ms), where ns is the # of nodes reachable from s
+
+#### BFS and Shortest Paths
