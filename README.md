@@ -630,3 +630,99 @@ A graph with n vertices has 2^n possible cuts
 
 Input: an undirected graph G = (V, E)
 Goal: compute a cut with fewest number of crossing edges (i.e. a min-cut)
+
+#### Graph Representations
+
+Let an undirected graph of n vertices
+Min # of edges: n - 1
+Max # of edges: n(n - 1) / 2
+
+n = # of vertices, m = # of edges
+In most applications, m is Omega(n) and O(n²)
+
+- Sparce graph: m is O(n) or close to it
+- Dense graph: m is closer to O(n²)
+
+Adjacency matrix: represent G using a n by n matrix
+
+A_ij = 1 <=> G has an i-j edge
+(requires n² space)
+
+Adjacency list:
+- array or list of vertices (theta(n))
+- array or list of edges (theta(m))
+- each edge points to its endpoints (theta(m))
+- each vertex points to edges incident to it (theta(m)) (same pointers as the 3rd item)
+--> requires theta(n + m) space (or theta(max(n, m)))
+
+Which is better: it depends on graph density and operations needed.
+
+#### Random Contraction Algorithm
+
+```
+while there are more than 2 vertices left:
+  - pick a remaining edge (u, v) at random
+  - merge (or "contract") u and v into a single vertex
+  - remove self loops
+return cut represented by final 2 vertices
+```
+
+#### Analysis of Contraction Algorithm
+
+What is the probability of success?
+
+Fix G = (V, E), n and m
+Fix A and B the minimum cut
+Let k be the # of edges crossing (A, B), those edge form F
+
+if an edge of F is contrated, the algo fails
+if not, succeeds
+
+First iteration, probability to fail: k/m
+
+Key observation: The degree of each vertex is at least k
+
+We have sum(v, degree(v)) = 2m and sum(v, degree(v)) >= kn
+--> m >= kn / 2
+
+P(fail1) = k/m <= 2 / n
+
+Second iteration:
+P(success1, success2) = P(success2|succes1) * P(success1)
+
+P(success1) >= 1 - 2/n
+P(success2|success1) = 1 - k/remaining edges
+
+remaining edges >= m - 1 >= k(n - 1) / 2
+
+Total probability: >= (1 - 2/n)(1 - 2/(n - 1))(1 - 2/(n - 2))...(1 - 2/(n - (n - 3)))
+i.e. >= 2 / (n(n - 1 )) >= 2 / n²
+
+Problem: low success proba... but non trivial! (# of cuts is exp, proba is ²)
+
+Solution: run the algo a large number N of times and remember the smallest cut found
+
+How many trials needed?
+
+P(all trials fail) <= (1 - 1 / n²)^N
+
+We have 1 + x <= e^x
+
+If we take N = n², P(all trials fail) <= (e^(-1/n²))^n² = 1 / e
+
+If we take N = n²ln(n), P(all trials fail) <= 1 / n
+
+Running time ?
+polynomial in n and m but slow
+Omega(n²m)
+
+But: better algo exist
+
+#### Counting Minimum Cuts
+
+A graph may ave more than one min cut
+
+Eg: a tree has n - 1 min cut
+
+Question: what is the largest number of min cut a graph can have?
+Answer: n choose 2 = n(n - 1) / 2
