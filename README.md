@@ -726,3 +726,5 @@ Eg: a tree has n - 1 min cut
 
 Question: what is the largest number of min cut a graph can have?
 Answer: n choose 2 = n(n - 1) / 2
+
+## Graph Search, Shortest Paths, and Data Structures
