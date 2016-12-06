@@ -816,3 +816,43 @@ DFS(G, starting vertex s)
 Could also mimick BFS with a stack instead of a queue.
 
 Running time: O(ns + ms)
+
+#### Topological Sort
+
+Definition: a topological ordering of a directed graph G is a labelling F of G's nodes such that:
+- the f(v)'s are the set {1,2,...,n}
+- (u,v) € G => f(u) < f(v)
+
+Motivation: Sequence tasks while respecting precedence constraints
+
+Note: cycle => no topo ordering
+
+Note: every DAG has a sink vertex.
+
+Straightforward solution:
+- let v be a sink vertex of G
+- set f(v) = n
+- recurse on G - {v}
+
+Topological sort via DFS (Slick)
+
+```
+TopologicalSort(G)
+  mark all vertices unexplored
+  current_label = n
+  for each vertex v:
+    if v not yet explored:
+      DFSForTopologicalSort(G, v)
+
+DFSForTopologicalSort(G, s)
+  mark s as explored
+  for every edge (s, v):
+    if v not yet explored:
+      DFS(G, v)
+  set f(s) = current_label
+  current_label--
+```
+
+Running time: O(m + n)
+Reason: O(1) time per node, O(1) time per edge
+Correctness: need to show that if (u,v) is an edge, then f(u)<f(v)
