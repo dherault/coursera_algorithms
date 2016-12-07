@@ -856,3 +856,38 @@ DFSForTopologicalSort(G, s)
 Running time: O(m + n)
 Reason: O(1) time per node, O(1) time per edge
 Correctness: need to show that if (u,v) is an edge, then f(u)<f(v)
+
+#### Computing Strong Components: The Algorithm
+
+Definition: the Strongly Connected Components (SCC) of a directed graph are the equivalence classes of the relation: u~v <=> E path u->v and a path v->u in G
+
+Kosaraju's two-pass algorithm O(m+n)
+
+```
+KosarajuSCC(G)
+  let Grev = G with all arcs reversed (could also run DFS going backward)
+  run DFS-loop on Grev (goal: compute "magical ordering" of nodes)
+    let f(v) = "finising time" of eac vertex v
+  run DFS-loop on G (goal: discover the SCC one by one)
+    processing nodes in decreasing order of finising time
+    save the leaders
+
+global variable t = 0 (# of nodes prcessed for far)
+global variable s = Null (current source vertex)
+
+DFS-loop(G)
+  Assume nodes labeled 1 to n
+  for i=n to 1:
+    if i not yet explored:
+      s = i
+      DFS(G, i)
+
+DFS(G, i)
+  mark i as explored (in a given DFS-loop)
+  set leader(i) = node s
+  for each edge (i,j):
+    if j not yet explored:
+      DFS(G, j)
+  t++
+  set f(i) = t
+```
