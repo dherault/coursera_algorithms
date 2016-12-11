@@ -867,12 +867,12 @@ Kosaraju's two-pass algorithm O(m+n)
 KosarajuSCC(G)
   let Grev = G with all arcs reversed (could also run DFS going backward)
   run DFS-loop on Grev (goal: compute "magical ordering" of nodes)
-    let f(v) = "finising time" of eac vertex v
+    let f(v) = "finising time" of each vertex v
   run DFS-loop on G (goal: discover the SCC one by one)
     processing nodes in decreasing order of finising time
     save the leaders
 
-global variable t = 0 (# of nodes prcessed for far)
+global variable t = 0 (# of nodes processed so far)
 global variable s = Null (current source vertex)
 
 DFS-loop(G)
