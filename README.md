@@ -891,3 +891,8 @@ DFS(G, i)
   t++
   set f(i) = t
 ```
+
+#### Computing Strong Components: The Analysis
+
+2nd pass of DFS-loop begings somewhere in a sink SCC C*
+First pass of DFS-loop discovers C* and nothing else
