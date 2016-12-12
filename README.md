@@ -896,3 +896,32 @@ DFS(G, i)
 
 2nd pass of DFS-loop begings somewhere in a sink SCC C*
 First pass of DFS-loop discovers C* and nothing else
+
+### Dijkstra's shortest-path algorithm
+
+#### Dijkstra's Shortest-Path Algorithm
+
+Input: a (directed) Graph G = (V, E) (n, m)
+each edge has a nonnegative length "le"
+source vertex s
+
+Output: for each v€V, compute L(v) = length of the shortest s-v path in G
+
+Assumption:
+- for convinience: A v€V, E s->v path
+- important: no negative edge length: le >= 0
+
+BFS computes the shortest path iff le=1 A e€E
+
+```
+DijkstraShortestPath(G, s)
+  X = {s}             # Vertices processed so far
+  A[s] = 0            # Computed shortest path distances
+  B[s] = empty path   # Computed shortest paths (do not include in actual implementation)
+
+  while X != V:
+    among all edges (v, w) € E with v € X, w not € X, pick the one that minimizes A[v] + l_vw (Dijkstra's greedy criterion), call it (v*, w*)
+    add w* to X
+    set A[w*] = A[v*] + l_v*w*
+    set B[w*] = B[v*] + (v*, w*)
+```

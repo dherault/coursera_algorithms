@@ -39,7 +39,7 @@ def kosaraju_strongly_connected_components():
   print('Adjacency lists created:', n, 'vertices')
   print('Running first depth-first search')
 
-  stack = []
+  stack = [] # A stack is used to perform DFS without recursion and avoid stack overflow
   orderings = []
   explored = [False] * n
 
