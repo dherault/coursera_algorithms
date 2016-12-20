@@ -925,3 +925,36 @@ DijkstraShortestPath(G, s)
     set A[w*] = A[v*] + l_v*w*
     set B[w*] = B[v*] + (v*, w*)
 ```
+
+#### Dijkstra's Algorithm: Implementation and Running Time
+
+As such, running time is theta(nm). But we can do better.
+
+Heap: perform insert, extract min in O(logn) time
+- perfectly balanced binary tree (height: log_2(n))
+- extract  min by swapping up last leaf, bubbling down
+- insert bia bubling up
+Also: will need the ability to delete from the middle of the heap (bubble up or down, as needed)
+
+Two invariants:
+- elements in heap = vertices of V - X
+- for v e V - X, key[v] = smallest Dijkstra greedy score of an edge (u, v) € E with U € X
+(key means value somehow) or +infinity if so such edge
+
+With those invariants, extract-min yields correct vertex w* to add to X next
+
+Maintaining the 2nd invariant:
+When w is extracted from heap, (ie added to X)
+```
+for each edge (w, v) € E:
+  if v € V - X (ie in heap):
+    remove V from heap
+    recompute key[v] = min(key[v], A[w] + l_wv)
+```
+
+Running time analysis:
+- Dominated by heap operations, O(logn) each
+- (n - 1) extract mins
+- each edge (v, w) triggers at most one Delete/Insert combo (if v added to X first)
+--> # of heap operations is O(n + m) = O(m) since the graph is weakly connected
+--> Running time: O(mlogn)
