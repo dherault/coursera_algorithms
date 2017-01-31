@@ -909,9 +909,9 @@ Output: for each v€V, compute L(v) = length of the shortest s-v path in G
 
 Assumption:
 - for convinience: A v€V, E s->v path
-- important: no negative edge length: le >= 0
+- important: no negative edge length: le >= 0 A e € E
 
-BFS computes the shortest path iff le=1 A e€E
+BFS computes the shortest path iff le=1 A e € E
 
 ```
 DijkstraShortestPath(G, s)
