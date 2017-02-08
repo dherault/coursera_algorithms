@@ -938,8 +938,8 @@ Also: will need the ability to delete from the middle of the heap (bubble up or 
 
 Two invariants:
 - elements in heap = vertices of V - X
-- for v e V - X, key[v] = smallest Dijkstra greedy score of an edge (u, v) € E with U € X
-(key means value somehow) or +infinity if so such edge
+- for v € V - X, key[v] = smallest Dijkstra greedy score of an edge (u, v) € E with U € X
+(key means value somehow) or +infinity if no such edge
 
 With those invariants, extract-min yields correct vertex w* to add to X next
 
@@ -948,8 +948,9 @@ When w is extracted from heap, (ie added to X)
 ```
 for each edge (w, v) € E:
   if v € V - X (ie in heap):
-    remove V from heap
+    remove v from heap
     recompute key[v] = min(key[v], A[w] + l_wv)
+    reinsert v into heap
 ```
 
 Running time analysis:
