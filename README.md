@@ -959,3 +959,29 @@ Running time analysis:
 - each edge (v, w) triggers at most one Delete/Insert combo (if v added to X first)
 --> # of heap operations is O(n + m) = O(m) since the graph is weakly connected
 --> Running time: O(mlogn)
+
+### Heaps
+
+#### Data Structures: Overview
+
+Point: organize data so that it can be accessed quickly and usefully
+
+Ex: lists, stacks, queues, heaps, search trees, hashtables, bloom filters, union-find, etc...
+
+#### Heaps: Operations and Applications
+
+- insert O(logn)
+- extract min O(logn)
+- heapify O(n)
+- delete O(logn)
+
+Application: sorting: HeapSort
+
+Application: Median maintenance
+
+Input: a sequence of n numbers
+Output: for each step, the median of the numbers
+Constraint: O(log i)
+
+Solution: 1 extractMin (Hhigh) and 1 extractMax (Hlow) heap
+Maintain invariant: i/2 smallest (largest) elements in Hlow (Hhigh)
