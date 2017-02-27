@@ -985,3 +985,62 @@ Constraint: O(log i)
 
 Solution: 1 extractMin (Hhigh) and 1 extractMax (Hlow) heap
 Maintain invariant: i/2 smallest (largest) elements in Hlow (Hhigh)
+
+### Balanced binary search trees
+
+#### Balanced Search Trees: Operations and Applications
+
+Things to do with a sorted array:
+- Search (binary search) O(logn)
+- Select (a given order statistic, ex: min/max) O(1)
+- Predecessor / successor O(1)
+- Rank (know # of keys less than a given value) O(logn)
+- Output in sorted order O(n)
+
+--> Apply on a static dataset
+
+BST: like sorted array + fast log insertion and deletion
+
+- Search O(logn)
+- Select O(logn)
+- Min/Max O(logn)
+- Predecessor / successor O(logn)
+- Rank O(logn)
+- Output O(n)
+- Insert / Delete O(logn)
+
+#### Binary Search Tree Basics
+
+Exactly one node per key
+most basic version each child has left and right child + parent pointers
+
+Search tree property: left children < current key, right children > current key
+
+Height of a BST:
+Number or "levels" (arcs)
+Note: many possible search tree for a set of keys
+--> height or depth: log2n <= h <= n
+
+Search:
+- Start at the root
+- Traverse left/right child pointrs as needed
+
+Insert:
+- Search for k (unseccessfully)
+- Rewire final Null pointer to point to new node with key k
+
+--> theta(height)
+
+Min/Max:
+- Start at the root
+- Follow left/right child pointers, return last key found
+
+Predecessor of k:
+- Easy case: if k's left subtree nonempty, return max key in left
+- Otherwise: follow parent pointers until you get to a key less than k
+
+In-order traversal
+- Let r = root of search tree, with subtrees Tl and Tr
+- Recurse on Tl
+- print out r's key
+- Recurse on Tr
