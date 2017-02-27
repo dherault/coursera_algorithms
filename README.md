@@ -1044,3 +1044,47 @@ In-order traversal
 - Recurse on Tl
 - print out r's key
 - Recurse on Tr
+
+Deletion (of a key k)
+- Search for key
+- easy case (k has no children): just delete k
+- medium case (k has only one child): just "splice out" k, replace with child
+- difficult case (k has 2 children):
+- compute k's predecessor l
+- swap k and l (note: k does not have a right child anymore)
+
+--> theta(height)
+
+Select and rank:
+Idea: store a little bit of extra info at each tree node about the tree itself
+Example augmentation: size(x) = # of tree nodes in subtree rooted at x = size(y) + size(z) + 1 (children + 1)
+
+How to select ith order statistic (with such a tree)
+- start at root x, with children y and z
+- let a = size(y) (0 if no left child)
+- if a = i - 1 return x's key
+- if a >= i recursively compute ith order statistic of search tree rooted at y
+- if a < i - i recursively compute (i - a - 1)th order statistic of tree rooted at z
+
+--> theta(height)
+
+#### Red-Black Trees
+
+Balanced, logn garanteed
+
+Idea: ensure that height stays logarithmic
+--> Ops run at O(logn)
+
+Example: red-black trees (see also AVL trees, splaytrees, b-trees, b+-trees)
+
+Red-black invariants:
+
+- Same as BST, plus more
+- Each node red or black
+- Root is black
+- No 2 reds in a row (red node ==> children must be black)
+- Every root-Null path (unsuccessful search) path has same number of black nodes
+
+Example:
+
+Claim: a chain of length 3 must be a red-black tree
