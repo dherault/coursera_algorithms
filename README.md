@@ -1090,3 +1090,13 @@ Example: a chain of length 3 cannot be a red-black tree. (4th invariant violated
 Example: perfectly balanced search tree
 
 Height garantee: every red-black tree with n nodes has height O(logn) [h <= 2log2(n+1)]
+
+#### Rotations
+
+Left rotations: locally rebalance subtrees at a node in O(1) time
+
+Of a parent x and right child y (x < y).
+
+P - x - A (left st of x), (y - B (left st of y), C (right sb of y))
+-->
+P - y - (x - A, B), C
