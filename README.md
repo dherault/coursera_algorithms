@@ -1085,6 +1085,8 @@ Red-black invariants:
 - No 2 reds in a row (red node ==> children must be black)
 - Every root-Null path (unsuccessful search) path has same number of black nodes
 
-Example:
+Example: a chain of length 3 cannot be a red-black tree. (4th invariant violated)
 
-Claim: a chain of length 3 must be a red-black tree
+Example: perfectly balanced search tree
+
+Height garantee: every red-black tree with n nodes has height O(logn) [h <= 2log2(n+1)]
