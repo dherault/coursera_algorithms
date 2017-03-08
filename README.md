@@ -1100,3 +1100,84 @@ Of a parent x and right child y (x < y).
 P - x - A (left st of x), (y - B (left st of y), C (right sb of y))
 -->
 P - y - (x - A, B), C
+
+### Hashing; bloom filters
+
+#### Hash Tables: Operations and Applications
+
+purpose: maintain a possibly evolving set of stuff. (gné?)
+
+Supported operation: insert, delete, lookup (using a "key")
+--> O(1)
+
+#### Hash Tables: Implementation Details
+
+Setup: know the universe U that we ant to store (all IP address, all chessboard position, ...)
+
+Goal: want to maintain a set S € U
+
+Naive solutions:
+- array-based, indexed by u, O(1) time but theta(|U|) space
+- list-based, theta(|S|) space but theta(|S|) memory
+
+Solution:
+- pick n = # of "buckets" with n ~= |S| (assume |S| does not vary too much)
+- choose a hash function h: U --> {0, 1, 2, ..., n - 1}
+- Use array A of length n, store x in A[h(x)]
+
+Birthday "paradox" => colisions will happen
+
+Resolving colisions:
+
+solution #1: separate chaining
+- keep linked list in each bucket
+- given a key/object x, perform insert/delete/lookup in the list in A[h(x)]
+
+solution #2: open addressing (only o object per bucket)
+- hash function now specifies probe sequence h1(x), h2(x), ...
+- keep trying until find an open slot
+
+What makes a good hash function ?
+
+Note: in hash table with chaining, insert is O(1), O(list length) for insert/delete
+Point: performance depends on a good hash function
+
+Properties of a good has function:
+- should "spread the data" as much as possible --> performance
+- does not work too hard, fast to evaluate
+
+Bad hash function, keys = phone numbers (10 digits)
+|u| = 10^10, n = 10^3
+- first 3 digits (terrible, some buckets will be filled, other empty)
+- last 3 digits (not uniformly distributed)
+
+next example: keys = memory locations (will be multiples of a number of 2)
+- bad hash function: x mod 1000 (some buckets will be empty (odd numbers))
+
+Quick and dirty hash functions:
+- turn the object into a (preferably big) number (eg: subroutine to convert strings into intergers)
+- compress that number (eg: the mod function)
+
+How to choose the number of buckets:
+- choose n to be a prime number (no multiple in common with data)
+- not too close to a power of 2 or 10
+
+#### Pathological Data Sets and Universal Hashing Motivation
+
+The load of a hash table:
+alpha = # of things that have been inserted / # of buckets of hash table
+
+For good hash table performance:
+- alpha = O(1) is necessary condition for operations to run in constant time
+- ith open addressing, need alpha << 1
+
+--> Need to control the load, make sure the # of buket increases with the # of items in the HT
+
+Pathological data sets
+
+--> Need a good hash function (spreads the data evenly)
+--> super good hash function does not exist
+
+Hacking prevention:
+- use a cryptografic hash function (ex: SHA-2), infeasible to reverse engineer
+- use randomization: design a family of hash functions such as for any data set, on average, the hash function will perform well
