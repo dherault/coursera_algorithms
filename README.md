@@ -1181,3 +1181,42 @@ Pathological data sets
 Hacking prevention:
 - use a cryptografic hash function (ex: SHA-2), infeasible to reverse engineer
 - use randomization: design a family of hash functions such as for any data set, on average, the hash function will perform well
+
+#### Universal Hashing: Definition and Example
+
+What is a good random hash function ?
+
+Def: let H be a set of hash functions U --> {0, ..., n - 1}
+
+H is universal <=> A (x, y) € U², x != y, P(h(x) = h(y), h € H) <= 1 / n
+where h is chosen uniformly at random
+
+Example: IP address (form: (x1, x2, x3, x4) with x € {0, ..., 255})
+
+Let n = a prime
+
+Construction:   
+
+### Bloom filters
+
+#### Bloom Filters: the basics
+
+Raison d'être lookups
+
+Comparaison with HT:
+- Pro: more space efficient
+- Con: can't store objects, no deletions (with basic implementation), small fasle negative probability
+
+Applications:
+- Early spellchecker (is this a legitimate word)
+- Canonical: list of forbiden passwords
+- Modern: network routers
+
+Under the hood:
+- Array of n bits (0 or 1)
+- k hash functions h1, ..., hk (k small constant)
+
+Insert: for i = 1...k, set A[hi(x)] = 1
+Lookup: return true if A[hi(x)] = 1 A i = 1...k
+
+Note: no false negative, but posibly false positive
