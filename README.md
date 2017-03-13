@@ -1232,3 +1232,40 @@ ie P <~= 1 - e^(-k|S|/n) = 1 - e^(-k/b) where b is # bits per object
 So under assumptions, for x !€ S, false positive probalbility is <= (1 - e^-k/b)^k
 
 How to set k ? k ~= ln2 * b
+
+## Greedy Algorithms, Minimum Spanning Trees, and Dynamic Programming
+
+### Greedy Algorithms
+
+#### Introduction to Greedy Algorithms
+
+Definition: iteratively make "myopic" decisions, hope everything works at the end
+
+Example: Dijkstra's shortest path
+
+#### Application: Optimal Caching
+
+The caching problem:
+- small fast memory (the cache)
+- big slow memory
+- process sequences of page request
+- on a fault, ie cache miss, need to evict something from the cache
+
+Theorem: the "furthest-in-future" algo is optimal (minimizes the number of cache miss)
+
+#### Scheduling problem: Definition
+
+Setup:
+- one shared resource
+- many "jobs" to do
+
+Question: In what order to do them ?
+
+Assume:
+- Each job as a weight wj (priority)
+- and a length lj
+
+Completion time cj of job j is the sum of job length up to and including j
+
+Goal (objective function): minimizes the weighted sum of completion times
+ie min sum(j=1..n, wj*cj)
