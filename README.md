@@ -1220,3 +1220,15 @@ Insert: for i = 1...k, set A[hi(x)] = 1
 Lookup: return true if A[hi(x)] = 1 A i = 1...k
 
 Note: no false negative, but posibly false positive
+
+#### Heuristic Analysis
+
+Intuition: sould be a trade-off between space and error probability
+
+Proba that a bit (in BF) has been set to 1 = 1 - (1 - 1/n)^(k * |S|)
+
+ie P <~= 1 - e^(-k|S|/n) = 1 - e^(-k/b) where b is # bits per object
+
+So under assumptions, for x !€ S, false positive probalbility is <= (1 - e^-k/b)^k
+
+How to set k ? k ~= ln2 * b
