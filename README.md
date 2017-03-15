@@ -1269,3 +1269,17 @@ Completion time cj of job j is the sum of job length up to and including j
 
 Goal (objective function): minimizes the weighted sum of completion times
 ie min sum(j=1..n, wj*cj)
+
+#### A Greedy Algorithm
+
+Good idea: look at special cases, then move to general case
+
+Edge case ideas: larger weights first, smaller length first
+
+what if wi > wi and li > lj ?
+
+Idea: assign a score: w - l or w/l
+
+Breaking a greedy algorithm:
+- Find examples where the two algorithms produce different input
+- ex: algo 1 ot always correct, algo 2 always
