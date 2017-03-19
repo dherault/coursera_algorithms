@@ -1283,3 +1283,82 @@ Idea: assign a score: w - l or w/l
 Breaking a greedy algorithm:
 - Find examples where the two algorithms produce different input
 - ex: algo 1 ot always correct, algo 2 always
+
+
+#### Minimum spanning trees
+
+Informal definition: connect some points as cheaply as possible
+Applications: clustering, networking
+
+Fast greedy algorithm:
+- Prim's algorithm, 1957
+- Kruskal's algorithm, 1956
+=> O(mlogn) time unsing suitable data structures
+
+Input: undirected graph G = (V, E), n,m, and a cost c for each edge
+
+Assume adjacency list representation
+
+Output: minimum cost tree T <= E that spans all vertices
+- Has no cycles
+- The subgraph (V, T) is connected (ie E a path for any 2 vertices)
+
+Assumptions:
+- G is connected
+- Edge costs are distinct (algos still correct without this assumption)
+
+#### Prim's MST Algorithm
+
+```
+X = [s], chosen arbitrarily
+T = empty [invariant: X = vertices spanned by tree-so-far T]
+while X != V
+  let e = (u, v) be the cheapest edge of G with u € X, v !€ X
+  add e to T
+  add v to X
+```
+
+O(n) iterations, O(m) per iteration => O(nm) running time for naive implementation
+
+Empty cut lemma: A graph is not connected <=> E cut (A, B) with no crossing edges
+
+Double crossing lemma: Suppose the cycle C € E has an edge crossing the cut (A, B), then so does some other edge of C
+
+Lonely cut corollary: If e is the only edge crossing some cut (A, B), then it is not in any cycle
+
+The cut property:
+Consider an edge e of G. Suppose there is a cut (A, B) such that e is the cheapest edge of G that crosses it. Then e belongs to the MST of G.
+
+#### Fast Implementation
+
+Using a Heap
+
+Using heap to store edges with keys = cost => O(mlogn)
+
+But there is better.
+
+Maintain:
+- Invariant 1: elements in heap = vertices of V - X
+- Invariant 2: key[v] = cheapest edge (u, v) cost with u € X
+
+Heap population:
+- Scan edges, find cheapest edge for each vertice of V - X O(m), populate heap O(nlogn) --> O(m + nlogn) = O(mlogn) since m >= n-1 because G is connected
+
+How to maintain invariant 2:
+When adding a new vertex, we need to recompute keys of the neighbours
+
+```
+when V added to X:
+  For each edge (v, w) € E:
+    If w € V - X
+      Delete w from heap
+      recompute key[w] = min(key[w], c_vw)
+      re insert w into heap
+```
+
+Running time with heaps:
+- n - 1 inserts durring preprocessing
+- n - 1 extract min per iteration
+- each edge (v, w) triggers one delete/insert op
+--> O(m) heap operations (since m >= n - 1)
+--> O(mlogn)
