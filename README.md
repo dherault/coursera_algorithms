@@ -1362,3 +1362,45 @@ Running time with heaps:
 - each edge (v, w) triggers one delete/insert op
 --> O(m) heap operations (since m >= n - 1)
 --> O(mlogn)
+
+### Kruskal's minimum spanning tree algorithm
+
+#### Kruskal's MST Algorithm
+
+Assumption: G is connected, costs are distincts (to ease proofs)
+
+Cut property: If e is the cheapest edge crossing some cut (A, B) then e belongs to the MST
+
+Kruskal's MST algo:
+```
+sort edges in order of increasing cost
+T = empty
+for i = 1 to m:
+  if T u {i} has no cycle:
+    add edge at sorted index i to T
+```
+
+#### Implementing Kruskal's Algorithm via union-find
+
+How to check for cycles: use BFS or DFS in the graph (V, T), which contains n - 1 edges
+
+algo --> O(nm)
+
+Union-find data structure: maitain a partition of a set of objects
+
+Find: return name of the group x belongs to
+Union: fuse two groups into a single one
+
+In Kruskal's: objects = vertices, groups = connected components, wen adding a new edge, check its groups and fuse them if possible
+
+Motivation: O(1) cycle check
+
+Idea:
+- Maintain one linked structure per connected component
+- each component has an arbitrary leader
+
+Invariant:
+- Each vertex points to its leader of its component ("name" of component is inherited from the leader)
+
+key point:
+- Cycle <=> edge (u,v), u and v have the same leader
