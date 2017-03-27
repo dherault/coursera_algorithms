@@ -1404,3 +1404,34 @@ Invariant:
 
 key point:
 - Cycle <=> edge (u,v), u and v have the same leader
+
+Maintaining the invariant:
+When new edge (u, v) added to T, connectected components of u and v merge.
+When two components merge, have smaller one  inherit the leader of the larger one. (maintain a count of each component)
+
+Running time:
+- O(mlogn) for sorting
+- O(m) for cycle checks (O(1) per iteration)
+- O(nlogn) for leader pointe updates
+- --> O(mlogn) total
+
+#### Application to Clustering
+
+Goal: given n points, classify them into "coherent groups"
+
+Assumptions:
+- As input, given a (dis)similarity measure - a distance d(p, q) between each pair of points
+- d is symmetric
+- we know k = # of clusters desired
+
+Call points p, q separated if they're assigned to different clusters
+
+```
+assign each point to a separate clusters
+
+repeat until only k clusters:
+  let p, q be the closest pair of separated points
+  merge the 2 clusters of p and q into one
+```
+
+--> Called single-link clustering
