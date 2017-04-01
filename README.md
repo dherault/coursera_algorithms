@@ -1498,3 +1498,11 @@ HuffmanCodes(S) {
 Running time: O(n²) where n = |S|
 Speed up: heap
 Even better: sorting + 2 queues
+
+### Introduction to dynamic programming
+
+#### Weighted Independent Sets in Path Graphs
+
+Input: a path graph G = (V, E) with nonnegative weights on vertices
+
+Output: subset of non-adjacent vertices (an independant set) of maximum total weigth
