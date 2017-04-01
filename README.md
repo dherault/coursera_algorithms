@@ -1491,6 +1491,10 @@ HuffmanCodes(S) {
   define pab = pa + pb
   T' = HuffmanCodes(S')
   Extend T' (with leaves = S') to a tree T (with leaves = S) by splitting leaf ab into a --0-- x --1-- b
-  return T 
+  return T
 }
 ```
+
+Running time: O(n²) where n = |S|
+Speed up: heap
+Even better: sorting + 2 queues
