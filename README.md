@@ -1435,3 +1435,62 @@ repeat until only k clusters:
 ```
 
 --> Called single-link clustering
+
+### Huffman codes
+
+#### Introduction: prefix-free variable encoding
+
+Binary code: map every char of an alphabet (S: say 32 chars) to a binary string
+
+Obvious encoding: 32 5-bit binary strings (eg: ASCII)
+
+Can we do better ? Yes if some chars are more frequent than others, using a variable length code
+
+Suppose { A, B, C, D } = { 00, 01, 10, 11 }. Assume we use { 0 01 10 1 } instead
+
+Then 001 could be AAD or AB
+
+Prefix-free codes: make sure that for every pair i, j € S, neither the encoding F(i), F(j) is a prefix of the other.
+
+Example: { 0, 10, 110, 111 } prefix-free
+
+Example: A: 60% 0, B: 25% 10, C: 10% 110, D: 5% 111 --> 1.55 bits needed of average per char
+
+#### Problem definition
+
+Codes as tree:
+
+Goal: find the best prefix-free encoding for a given set of character frequencies
+
+Fact: binary codes <--> binary trees
+
+Left child: 0, right child: 1
+
+Prefix-free <--> labelled node are leaves
+
+To decode: repeatedly follow path from root until you hit a leaf
+
+Input: probability pi for each character i € S
+
+Notation: if T = tree with leaves <--> symbols of S, then L(T) (average encoding length) = sum(on S, pi * depth of i in T)
+
+#### A greedy algorithm
+
+Natural but sub-optimal idea: top-down, divide and conquer
+- Partition S into S1 and S2 each with 50% of total frequency
+- Recursively compute T1 for S1 and T2 for S2, return
+
+Huffman's (optimal) idea:
+- build tree bottom up
+
+```
+HuffmanCodes(S) {
+  if |S|==2 return A --0-- root --1-- B
+  Let a, b € S ave the smallest frequencies
+  Let S' = S with a, b replaced wih new symbol ab
+  define pab = pa + pb
+  T' = HuffmanCodes(S')
+  Extend T' (with leaves = S') to a tree T (with leaves = S) by splitting leaf ab into a --0-- x --1-- b
+  return T 
+}
+```
