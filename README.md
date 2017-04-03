@@ -1526,7 +1526,7 @@ Plan: populate array A left to right with A[i] = Value of max-weight IS of Gi
 A[0] = 0
 A[1] = w1
 
-For i=1:n {
+For i=2:n {
   A[i] = max(A[i - 1], A[i - 2] + wi)
 }
 ```
