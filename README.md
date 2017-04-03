@@ -1506,3 +1506,52 @@ Even better: sorting + 2 queues
 Input: a path graph G = (V, E) with nonnegative weights on vertices
 
 Output: subset of non-adjacent vertices (an independant set) of maximum total weigth
+
+#### WIS in Path Graphs: Optimal Substructure
+
+Optimal substructure:
+critical step: reason about structure of an optimal solution
+
+Upshot: a max-weight IS must be either
+- a max-weight IS of G', or
+- vn + a max-weight IS of G''
+
+If we knew wether or not vn is in the max-weight IS, then  could recursively compute the max-weight IS of G' or G''.
+
+Let Gi = first i vertices of G
+
+Plan: populate array A left to right with A[i] = Value of max-weight IS of Gi
+
+```
+A[0] = 0
+A[1] = w1
+
+For i=1:n {
+  A[i] = max(A[i - 1], A[i - 2] + wi)
+}
+```
+#### WIS in Path Graphs: A Reconstruction Algorithm
+
+Reconstruction algorithm
+```
+Let A = filled in array A
+
+Let S = empty
+While i >= 1 {
+  If A[i - 1] >= A[i - 2] + wi {
+    i -= 1
+  }
+  else {
+    add vi to S
+    i -= 2
+  }
+}
+
+return S
+```
+
+#### Principles of Dynamic Programming
+
+- Identify a small number of subproblems
+- Can quickly + correctly solve "larger" subproblems given the solutions to the smaller subproblems
+- After solving all subproblems, can quickly compute the final solution
