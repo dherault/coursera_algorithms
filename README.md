@@ -1485,7 +1485,7 @@ Huffman's (optimal) idea:
 
 ```
 HuffmanCodes(S) {
-  if |S|==2 return A --0-- root --1-- B
+  if |S|==2 return A --0-- x --1-- B
   Let a, b € S ave the smallest frequencies
   Let S' = S with a, b replaced wih new symbol ab
   define pab = pa + pb
