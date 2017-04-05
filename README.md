@@ -1555,3 +1555,14 @@ return S
 - Identify a small number of subproblems
 - Can quickly + correctly solve "larger" subproblems given the solutions to the smaller subproblems
 - After solving all subproblems, can quickly compute the final solution
+
+### The Knapsack problem
+
+Input: n items with
+- a value vi (nonnegative)
+- a size wi (nonnegative and integer)
+And a capacity W (nonnegative and integer)
+
+Output: a subset S € { 1, ..., n }
+That maximises sum(vi)
+subject to sum(wi) < W
