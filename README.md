@@ -1566,3 +1566,73 @@ And a capacity W (nonnegative and integer)
 Output: a subset S € { 1, ..., n }
 That maximises sum(vi)
 subject to sum(wi) < W
+
+#### A Dynamic Programming Algorithm
+
+Notation: Vix = value of the best solution that:
+- Uses only the first i items
+- Hastotal size <= x
+
+Vix = max(V(i-1)x, vi + V(i-1)(x-wi)) <-- our recurrence
+
+Edge case: if wi > x, must have Vix = V(i-1)x
+
+```
+Let A = 2D array
+initialize A[0, x] = 0 for x = 0, 1, ..., W
+
+For i = 1:n {
+  For x = 0:W {
+    A[i, x] = max(A[i - 1, x], A[i - 1, x - wi] + vi or 0 if wi > x)
+  }
+}
+
+Return A[n, W]
+```
+
+O(nW)
+
+### Sequence alignment
+
+#### Optimal Substructure
+
+Example: AGGGCT and AGGCA --> AGG-CA
+Total penalty: e_gap + e_AT
+
+Inputs:
+- two strings X = x1,...,xn and Y = y1,...,yn over some alphabet S (like { A, G, C, T })
+- penalty e_gap
+- penalty e_ab, (e_ab = 0 if a = b)
+
+Goal: align strings and minimize penalty
+
+#### A Dynamic Programming Algorithm
+
+```
+A = 2D array
+A[i, 0] = A[0, i] = i * e_gap for all i >= 0
+For i = 1:m {
+  For j = 1:n {
+    A[i, j] = min(
+      A[i - 1, j - 1] + e_xiyj
+      A[i - 1, j] + e_gap
+      A[i, j - 1] + e_gap
+    )
+  }
+}
+Return A[m, n]
+```
+
+O(mn)
+
+Reconstructing:
+- Trace back through filled-in table A, starting at A[m, n]
+- When you reach subproblem A[i, j]:
+  - If A[i, j] filled using case 1, match xi and yj, goto A[i - 1, j - 1]
+  - If A[i, j] filled using case 2, match xi with a gap, goto A[i - 1, j]
+  - If A[i, j] filled using case 3, match yj with a gap, goto A[i, j - 1]
+- If i = 0 or j = 0, match remaining substring with gaps
+
+### Optimal binary search trees
+
+#### Problem definition
