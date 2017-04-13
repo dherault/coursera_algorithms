@@ -1636,3 +1636,15 @@ Reconstructing:
 ### Optimal binary search trees
 
 #### Problem definition
+
+What is the "best" search tree for a given set of keys?
+--> A balanced search tree, like a red-black tree
+--> worst-case search time: O(height) = O(logn)
+
+Input: frequencies p1, p2, ..., pn for items 1, 2, ..., n (assume items in sorted order ie 1 < ... < n)
+
+Goal: compute a valid search tree that minimises the weighted (average) search time
+
+C(T) = sum(items i, pi * search time for i in T)
+
+If T is a red-black tree, then C(T) = O(logn)
