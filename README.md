@@ -1648,3 +1648,9 @@ Goal: compute a valid search tree that minimises the weighted (average) search t
 C(T) = sum(items i, pi * search time for i in T)
 
 If T is a red-black tree, then C(T) = O(logn)
+
+#### Optimal Substructure
+
+Focus on a top-down approach
+
+Choosing the root can have hard to predict repercussions
